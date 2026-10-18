@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block body %}<h1>Daily summaries (Azure SQL)</h1>
+{% if can('summary.generate') %}<form method="post" action="{{ url_for('summary_generate') }}" style="display:flex;gap:.6rem;align-items:end;max-width:420px">
+<input type="hidden" name="_csrf" value="{{ csrf_token }}">
+<div style="flex:1"><label>Date</label><input type="date" name="date" value="{{ today }}" required></div><button>Generate</button></form>{% endif %}
+<table style="margin-top:1rem"><tr><th>Date</th><th>Surveys</th><th>Total cost</th><th>Top species</th><th>Alerts</th><th>PDF</th></tr>
+{% for s in items %}<tr><td>{{ s.summary_date }}</td><td>{{ s.total_surveys }}</td><td>${{ '%.2f'|format(s.total_survey_cost|float) }}</td>
+<td>{{ s.top_species or '-' }}</td><td>{{ s.low_equipment_alerts or '-' }}</td>
+<td>{% if can('summary.pdf') %}<a href="{{ url_for('summary_pdf_route', date=s.summary_date) }}">PDF</a>{% endif %}</td></tr>
+{% else %}<tr><td colspan="6">No summaries yet.</td></tr>{% endfor %}</table>{% endblock %}

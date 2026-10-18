@@ -1,0 +1,7 @@
+pymongo>=4.6
+pymssql>=2.3.0
+flask>=3.0
+gunicorn>=22.0
+reportlab>=4.0
+matplotlib>=3.8
+python-dotenv>=1.0

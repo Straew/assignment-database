@@ -1,0 +1,78 @@
+{
+  "database": "ReefWatchDB",
+  "throughput": "shared 400 RU/s",
+  "collections": {
+    "surveys": {
+      "indexes": [
+        "survey_date",
+        "created_at"
+      ]
+    },
+    "equipment": {
+      "indexes": [
+        "name",
+        "category"
+      ]
+    },
+    "partner_organisations": {
+      "indexes": [
+        "org_name"
+      ]
+    }
+  },
+  "sample_documents": {
+    "surveys": {
+      "_id": "sv-1a2b3c4d",
+      "survey_date": "2026-10-12",
+      "site": "Heron Island North",
+      "researcher": {
+        "name": "Dr Maya Chen",
+        "email": "maya.chen@reefwatch.example",
+        "institution": "ReefWatch"
+      },
+      "species_observed": [
+        {
+          "name": "Clownfish",
+          "count": 12
+        },
+        {
+          "name": "Green Turtle",
+          "count": 2
+        }
+      ],
+      "equipment_used": [
+        {
+          "equipment_id": "eq-001",
+          "name": "Dive tank 12L",
+          "category": "Diving",
+          "quantity": 2
+        }
+      ],
+      "survey_cost": 840.5,
+      "notes": "Good visibility, light current.",
+      "created_at": "2026-10-12T10:15:00+00:00"
+    },
+    "equipment": {
+      "_id": "eq-001",
+      "name": "Dive tank 12L",
+      "category": "Diving",
+      "replacement_cost": 450.0,
+      "available_quantity": 18,
+      "low_stock_threshold": 5
+    },
+    "partner_organisations": {
+      "_id": "org-001",
+      "org_name": "Great Barrier Reef Foundation",
+      "org_type": "Foundation",
+      "contact": {
+        "name": "Ava Thompson",
+        "email": "ava@gbrf.example",
+        "phone": "07 5550 0101"
+      },
+      "conservation_areas": [
+        "Northern GBR",
+        "Coral restoration"
+      ]
+    }
+  }
+}

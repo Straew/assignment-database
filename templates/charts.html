@@ -1,0 +1,11 @@
+{% extends 'base.html' %}{% block body %}<h1>Survey trends (last 14 days)</h1>
+<div class="card"><canvas id="c1" height="110"></canvas></div><br>
+<div class="card"><canvas id="c2" height="110"></canvas></div><br>
+<div class="card"><canvas id="c3" height="110"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+const t={{ trend|tojson }}, sp={{ species|tojson }}, labels=t.map(x=>x.date);
+new Chart(c1,{type:'bar',data:{labels,datasets:[{label:'Surveys per day',data:t.map(x=>x.total_surveys),backgroundColor:'#0b5c73'}]}});
+new Chart(c2,{type:'line',data:{labels,datasets:[{label:'Survey cost ($)',data:t.map(x=>x.total_cost),borderColor:'#e07a1f',tension:.3}]}});
+new Chart(c3,{type:'bar',data:{labels:sp.map(x=>x[0]),datasets:[{label:'Surveys in which observed',data:sp.map(x=>x[1]),backgroundColor:'#2a9d8f'}]}});
+</script>{% endblock %}

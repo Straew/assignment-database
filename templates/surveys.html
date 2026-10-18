@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block body %}<h1>Recent surveys</h1>
+<table><tr><th>Date</th><th>Site</th><th>Researcher</th><th>Species</th><th>Cost</th>{% if can('survey.pdf') %}<th>PDF</th>{% endif %}</tr>
+{% for s in items %}<tr><td>{{ s.survey_date }}</td><td>{{ s.site }}</td><td>{{ s.researcher.name }}</td>
+<td>{{ s.species_observed|map(attribute='name')|join(', ') }}</td><td>${{ '%.2f'|format(s.survey_cost) }}</td>
+{% if can('survey.pdf') %}<td><a href="{{ url_for('survey_pdf_route', sid=s['_id']) }}">PDF</a></td>{% endif %}</tr>
+{% else %}<tr><td colspan="6">No surveys yet.</td></tr>{% endfor %}</table>{% endblock %}

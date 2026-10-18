@@ -1,0 +1,15 @@
+{% extends 'base.html' %}{% block body %}<h1>New survey</h1>
+<form method="post"><input type="hidden" name="_csrf" value="{{ csrf_token }}"><div class="grid">
+<div><label>Researcher name</label><input name="r_name" required></div>
+<div><label>Email</label><input type="email" name="r_email"></div>
+<div><label>Institution</label><input name="r_inst"></div>
+<div><label>Site</label><input name="site" required></div>
+<div><label>Date</label><input type="date" name="date" value="{{ today }}" required></div>
+<div><label>Survey cost ($)</label><input type="number" step="0.01" min="0" name="cost" required></div></div>
+<label>Species observed (name:count, comma-separated)</label>
+<input name="species" placeholder="Clownfish:12, Green Turtle:2" required>
+<label>Notes</label><textarea name="notes" rows="2"></textarea>
+<h3>Equipment used (quantity)</h3><div class="grid">
+{% for e in equipment %}<div><label>{{ e.name }} <small>({{ e.available_quantity }} available)</small></label>
+<input type="number" min="0" max="{{ e.available_quantity }}" name="qty_{{ e['_id'] }}" placeholder="0"></div>{% endfor %}</div>
+<button>Save survey</button></form>{% endblock %}

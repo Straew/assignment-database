@@ -1,0 +1,30 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>ReefWatch</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:0;background:#f2f9fb;color:#12333d}
+nav{background:#0b5c73;padding:.8rem 1.2rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+nav a,nav b,nav span{color:#fff;text-decoration:none}nav .sp{flex:1}
+main{max-width:1000px;margin:1.2rem auto;padding:0 1rem}
+table{border-collapse:collapse;width:100%;background:#fff}th,td{border:1px solid #cfe3e9;padding:.45rem .6rem;text-align:left}
+th{background:#d6ecf3}.cards{display:flex;gap:1rem;flex-wrap:wrap}
+.card{background:#fff;border:1px solid #cfe3e9;border-radius:10px;padding:1rem;flex:1;min-width:170px}
+.card b{display:block;font-size:1.6rem}label{display:block;margin:.6rem 0 .2rem;font-weight:600}
+input,select,textarea{padding:.45rem;width:100%;box-sizing:border-box;border:1px solid #9bc3cf;border-radius:6px}
+button,.btn{background:#0b5c73;color:#fff;border:0;padding:.5rem 1rem;border-radius:6px;cursor:pointer;text-decoration:none;display:inline-block;margin-top:.8rem}
+.flash{padding:.7rem 1rem;border-radius:6px;margin-bottom:1rem}.ok{background:#d9f2e3}.err{background:#fadbd8}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem}
+.inline{display:flex;gap:.4rem;align-items:center}.inline input{width:80px}.inline button{margin:0;padding:.3rem .7rem}
+</style></head><body>
+<nav><b>&#127754; ReefWatch</b>
+{% if session.user %}
+<a href="{{ url_for('dashboard') }}">Dashboard</a>
+{% if can('survey.view') %}<a href="{{ url_for('surveys') }}">Surveys</a>{% endif %}
+{% if can('survey.add') %}<a href="{{ url_for('survey_new') }}">New survey</a>{% endif %}
+{% if can('equipment.view') %}<a href="{{ url_for('equipment') }}">Equipment</a>{% endif %}
+{% if can('partner.manage') %}<a href="{{ url_for('partners') }}">Partners</a>{% endif %}
+{% if can('summary.view') %}<a href="{{ url_for('summaries') }}">Summaries</a>{% endif %}
+{% if can('charts.view') %}<a href="{{ url_for('charts_page') }}">Charts</a>{% endif %}
+<span class="sp"></span><span>{{ session.user }} ({{ session.role }})</span>
+<a href="{{ url_for('logout') }}">Logout</a>{% endif %}</nav>
+<main>{% for cat, msg in get_flashed_messages(with_categories=true) %}<div class="flash {{ cat }}">{{ msg }}</div>{% endfor %}
+{% block body %}{% endblock %}</main></body></html>

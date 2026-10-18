@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% block body %}<h1>Equipment</h1>
+<table><tr><th>Name</th><th>Category</th><th>Replacement cost</th><th>Available</th><th>Status</th>{% if can('equipment.manage') %}<th>Restock</th>{% endif %}</tr>
+{% for e in items %}<tr><td>{{ e.name }}</td><td>{{ e.category }}</td><td>${{ '%.2f'|format(e.replacement_cost) }}</td>
+<td>{{ e.available_quantity }}</td><td>{% if e.available_quantity <= e.low_stock_threshold %}&#9888; LOW{% else %}OK{% endif %}</td>
+{% if can('equipment.manage') %}<td><form class="inline" method="post" action="{{ url_for('equipment_restock', eid=e['_id']) }}">
+<input type="hidden" name="_csrf" value="{{ csrf_token }}"><input type="number" name="qty" min="1" placeholder="+qty" required><button>Add</button></form></td>{% endif %}</tr>{% endfor %}</table>
+{% if can('equipment.manage') %}<h2>Add equipment</h2><form method="post" action="{{ url_for('equipment_new') }}">
+<input type="hidden" name="_csrf" value="{{ csrf_token }}"><div class="grid">
+<div><label>Name</label><input name="name" required></div><div><label>Category</label><input name="category" required></div>
+<div><label>Replacement cost</label><input type="number" step="0.01" min="0" name="cost" required></div>
+<div><label>Quantity</label><input type="number" min="0" name="qty" required></div>
+<div><label>Low-stock threshold</label><input type="number" min="0" name="threshold" value="2" required></div></div>
+<button>Add</button></form>{% endif %}{% endblock %}

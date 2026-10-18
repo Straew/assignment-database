@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block body %}<h1>Partner organisations</h1>
+<table><tr><th>Organisation</th><th>Type</th><th>Contact</th><th>Conservation areas</th></tr>
+{% for p in items %}<tr><td>{{ p.org_name }}</td><td>{{ p.org_type }}</td>
+<td>{{ p.contact.name }}<br>{{ p.contact.email }}<br>{{ p.contact.phone }}</td><td>{{ p.conservation_areas|join(', ') }}</td></tr>{% endfor %}</table>
+<h2>Add partner</h2><form method="post" action="{{ url_for('partner_new') }}"><input type="hidden" name="_csrf" value="{{ csrf_token }}"><div class="grid">
+<div><label>Organisation</label><input name="org_name" required></div><div><label>Type</label><input name="org_type" placeholder="University, NGO..."></div>
+<div><label>Contact name</label><input name="c_name"></div><div><label>Contact email</label><input type="email" name="c_email"></div>
+<div><label>Contact phone</label><input name="c_phone"></div></div>
+<label>Conservation areas (comma-separated)</label><input name="areas"><button>Add</button></form>{% endblock %}

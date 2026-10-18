@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block body %}<h1>Today: {{ s.summary_date }}</h1>
+<div class="cards"><div class="card"><b>{{ s.total_surveys }}</b>surveys</div>
+<div class="card"><b>${{ '%.2f'|format(s.total_cost) }}</b>survey cost</div>
+<div class="card"><b>{{ s.top_species or 'n/a' }}</b>top species</div></div>
+<h2>Low-equipment alerts</h2>{% if s.low_alerts %}<ul>{% for a in s.low_alerts %}<li>&#9888; {{ a }}</li>{% endfor %}</ul>
+{% else %}<p>All stock levels healthy.</p>{% endif %}{% endblock %}
