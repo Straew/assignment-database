@@ -1,0 +1,1 @@
+wsgi_app = "flask_app:app"
