@@ -51,7 +51,6 @@ import uuid
 from contextlib import contextmanager
 from functools import cached_property
 from pathlib import Path
-from flask_app import app
 
 import pymssql
 from pymongo import ReturnDocument
